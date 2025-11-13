@@ -1,5 +1,4 @@
-const centerBlock = document.getElementById('centerBlock');
-const colorPicker = document.getElementById('colorPicker');
+const picker = document.querySelector('.colorPicker');
 const blocks = {
     b1: document.getElementById('b1'),
     b2: document.getElementById('b2'),
@@ -7,7 +6,6 @@ const blocks = {
     b4: document.getElementById('b4')
 };
 
-// Функция преобразования HEX в RGB с смещением
 function hexToRgb(hex, rOffset = 0, gOffset = 0, bOffset = 0) {
     hex = hex.replace('#', '');
     
@@ -22,7 +20,6 @@ function hexToRgb(hex, rOffset = 0, gOffset = 0, bOffset = 0) {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
-// Функция для получения HEX из RGB
 function rgbToHex(rgb) {
     const match = rgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
     if (!match) return '#000000';
@@ -37,31 +34,17 @@ function rgbToHex(rgb) {
     }).join('');
 }
 
-// Обновление цветов блоков на основе выбранного цвета
-function updateColors(hexColor) {
-    // Обновляем центральный блок
-    centerBlock.style.background = hexColor;
-    
-    // Обновляем 4 блока с разными смещениями
-    blocks.b1.style.backgroundColor = hexToRgb(hexColor, 40, -20, -10);
-    blocks.b2.style.backgroundColor = hexToRgb(hexColor, -20, 30, -15);
-    blocks.b3.style.backgroundColor = hexToRgb(hexColor, 25, -15, 25);
-    blocks.b4.style.backgroundColor = hexToRgb(hexColor, -30, -10, 40);
+function updateColors() {
+    const baseColor = picker.value;
+
+    blocks.b1.style.backgroundColor = hexToRgb(baseColor, 30, -30, 10);
+    blocks.b2.style.backgroundColor = hexToRgb(baseColor, -10, 20, -30);
+    blocks.b3.style.backgroundColor = hexToRgb(baseColor, 20, 15, 0);
+    blocks.b4.style.backgroundColor = hexToRgb(baseColor, -30, 10, 15);
 }
 
-// Обработчик клика по центральному блоку
-centerBlock.addEventListener('click', function() {
-    colorPicker.click();
-});
+picker.addEventListener('input', updateColors);
 
-// Обработчик выбора цвета
-colorPicker.addEventListener('input', function() {
-    const selectedColor = this.value;
-    updateColors(selectedColor);
-    centerBlock.querySelector('span').textContent = selectedColor.toUpperCase();
-});
-
-// Обработчики для блоков (показ цвета при наведении)
 Object.keys(blocks).forEach(blockId => {
     const block = blocks[blockId];
     
@@ -76,5 +59,4 @@ Object.keys(blocks).forEach(blockId => {
     });
 });
 
-// Инициализация начального цвета
-updateColors('#667eea');
+updateColors();
