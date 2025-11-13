@@ -50,29 +50,32 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
     grid-row: span 2;
     grid-column: 2;
 }
 
 .colorPicker {
-    width: 80px;
-    height: 180px;
+    width: 100px;
+    height: 200px;
     border: none;
     cursor: pointer;
     background: none;
+    padding: 0;
 }
 
 .colorPicker::-webkit-color-swatch {
     border: none;
+    border-radius: 0;
+    width: 100px;
+    height: 200px;
 }
 
 .colorPicker::-webkit-color-swatch-wrapper {
     padding: 0;
     border: none;
+    border-radius: 0;
 }
 
-/* Начальные цвета блоков */
 .b1 { background-color: #ff6b6b; }
 .b2 { background-color: #4ecdc4; }
 .b3 { background-color: #45b7d1; }
