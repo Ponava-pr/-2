@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f0f0f0;
+    background: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,80 +15,77 @@ body {
 
 .container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 40px;
     padding: 20px;
 }
 
-/* Расположение 4 блоков по углам */
-.color-blocks {
+.color-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    width: 300px;
-    height: 300px;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px;
+    gap: 0;
+    border: 2px solid #333;
+    background: #333;
 }
 
 .block {
-    width: 120px;
-    height: 120px;
-    border-radius: 8px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
     font-weight: bold;
     color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: 2px solid transparent;
+    border: 1px solid #333;
+    transition: all 0.2s ease;
 }
 
 .block:hover {
-    transform: scale(1.05);
-    border-color: rgba(255, 255, 255, 0.5);
+    filter: brightness(1.1);
+    z-index: 1;
+    position: relative;
 }
 
-/* Центральный блок */
-.center-block {
-    width: 150px;
-    height: 150px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.color-picker-container {
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #fff;
+    border: 1px solid #333;
+}
+
+.colorPicker {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 0;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    border: 3px solid #fff;
+    background: none;
 }
 
-.center-block:hover {
-    transform: scale(1.08);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.colorPicker::-webkit-color-swatch {
+    border: none;
+    border-radius: 0;
 }
 
-.center-block span {
-    color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    font-size: 14px;
-    text-align: center;
-    padding: 10px;
+.colorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+    border-radius: 0;
 }
 
-/* Скрытый input color */
-.hidden {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+.empty {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border: 1px solid #333;
 }
 
-/* Начальные цвета блоков */
 .b1 { background-color: #ff6b6b; }
 .b2 { background-color: #4ecdc4; }
 .b3 { background-color: #45b7d1; }
