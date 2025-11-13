@@ -25,8 +25,6 @@ body {
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px;
     gap: 0;
-    border: 2px solid #333;
-    background: #333;
 }
 
 .block {
@@ -39,31 +37,27 @@ body {
     font-weight: bold;
     color: white;
     cursor: pointer;
-    border: 1px solid #333;
     transition: all 0.2s ease;
 }
 
 .block:hover {
     filter: brightness(1.1);
-    z-index: 1;
-    position: relative;
 }
 
 .color-picker-container {
     width: 100px;
-    height: 100px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #fff;
-    border: 1px solid #333;
+    grid-row: span 2;
 }
 
 .colorPicker {
     width: 80px;
-    height: 80px;
+    height: 180px;
     border: none;
-    border-radius: 0;
     cursor: pointer;
     background: none;
 }
@@ -79,13 +73,7 @@ body {
     border-radius: 0;
 }
 
-.empty {
-    width: 100px;
-    height: 100px;
-    background: #fff;
-    border: 1px solid #333;
-}
-
+/* Начальные цвета блоков */
 .b1 { background-color: #ff6b6b; }
 .b2 { background-color: #4ecdc4; }
 .b3 { background-color: #45b7d1; }
