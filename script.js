@@ -1,4 +1,5 @@
-const picker = document.querySelector('.colorPicker');
+const centerBlock = document.getElementById('centerBlock');
+const colorPicker = document.getElementById('colorPicker');
 const blocks = {
     b1: document.getElementById('b1'),
     b2: document.getElementById('b2'),
@@ -6,17 +7,14 @@ const blocks = {
     b4: document.getElementById('b4')
 };
 
-// Функция преобразования HEX в RGB с возможностью смещения
+// Функция преобразования HEX в RGB с смещением
 function hexToRgb(hex, rOffset = 0, gOffset = 0, bOffset = 0) {
-    // Убираем # если есть
     hex = hex.replace('#', '');
     
-    // Преобразуем HEX в RGB
     let r = parseInt(hex.substring(0, 2), 16);
     let g = parseInt(hex.substring(2, 4), 16);
     let b = parseInt(hex.substring(4, 6), 16);
     
-    // Применяем смещение
     r = Math.max(0, Math.min(255, r + rOffset));
     g = Math.max(0, Math.min(255, g + gOffset));
     b = Math.max(0, Math.min(255, b + bOffset));
@@ -39,18 +37,31 @@ function rgbToHex(rgb) {
     }).join('');
 }
 
-// Обновление цветов блоков
-function updateColors() {
-    const baseColor = picker.value;
+// Обновление цветов блоков на основе выбранного цвета
+function updateColors(hexColor) {
+    // Обновляем центральный блок
+    centerBlock.style.background = hexColor;
     
-    // Устанавливаем разные смещения для каждого блока (как в задании)
-    blocks.b1.style.backgroundColor = hexToRgb(baseColor, 30, -30, 10);
-    blocks.b2.style.backgroundColor = hexToRgb(baseColor, -10, 20, -30);
-    blocks.b3.style.backgroundColor = hexToRgb(baseColor, 20, 15, 0);
-    blocks.b4.style.backgroundColor = hexToRgb(baseColor, -30, 10, 15);
+    // Обновляем 4 блока с разными смещениями
+    blocks.b1.style.backgroundColor = hexToRgb(hexColor, 40, -20, -10);
+    blocks.b2.style.backgroundColor = hexToRgb(hexColor, -20, 30, -15);
+    blocks.b3.style.backgroundColor = hexToRgb(hexColor, 25, -15, 25);
+    blocks.b4.style.backgroundColor = hexToRgb(hexColor, -30, -10, 40);
 }
 
-// Добавляем обработчики для отображения цвета при наведении
+// Обработчик клика по центральному блоку
+centerBlock.addEventListener('click', function() {
+    colorPicker.click();
+});
+
+// Обработчик выбора цвета
+colorPicker.addEventListener('input', function() {
+    const selectedColor = this.value;
+    updateColors(selectedColor);
+    centerBlock.querySelector('span').textContent = selectedColor.toUpperCase();
+});
+
+// Обработчики для блоков (показ цвета при наведении)
 Object.keys(blocks).forEach(blockId => {
     const block = blocks[blockId];
     
@@ -58,30 +69,12 @@ Object.keys(blocks).forEach(blockId => {
         const bgColor = this.style.backgroundColor;
         const hexColor = rgbToHex(bgColor);
         this.textContent = hexColor.toUpperCase();
-        this.style.color = getContrastColor(hexColor);
     });
     
     block.addEventListener('mouseleave', function() {
         this.textContent = blockId;
-        this.style.color = 'white';
     });
 });
 
-// Функция для определения контрастного цвета текста
-function getContrastColor(hexColor) {
-    const hex = hexColor.replace('#', '');
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
-    
-    // Яркость по формуле
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    
-    return brightness > 128 ? 'black' : 'white';
-}
-
-// Обработчик изменения цвета
-picker.addEventListener('input', updateColors);
-
-// Инициализация при загрузке
-updateColors();
+// Инициализация начального цвета
+updateColors('#667eea');
