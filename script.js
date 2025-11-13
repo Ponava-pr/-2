@@ -45,6 +45,7 @@ function updateColors() {
 
 picker.addEventListener('input', updateColors);
 
+
 Object.keys(blocks).forEach(blockId => {
     const block = blocks[blockId];
     
