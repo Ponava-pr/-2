@@ -21,14 +21,9 @@ body {
 }
 
 .color-grid {
-    display: flex;
-    gap: 0;
-    align-items: center;
-}
-
-.left-blocks, .right-blocks {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px;
     gap: 0;
 }
 
@@ -56,6 +51,8 @@ body {
     align-items: center;
     justify-content: center;
     background: #fff;
+    grid-row: span 2;
+    grid-column: 2;
 }
 
 .colorPicker {
